@@ -1,0 +1,70 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <title>Chat Application</title>
+</head>
+<body>
+  <ul id="messages"></ul>
+  <form id="message-form">
+    <input type="text" id="message-input">
+    <button type="submit">Send</button>
+  </form>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    const messageForm = document.getElementById('message-form');
+    const messageInput = document.getElementById('message-input');
+    const messagesList = document.getElementById('messages');
+
+    messageForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const message = messageInput.value;
+      socket.emit('chat message', message);
+      messageInput.value = '';
+    });
+
+    socket.on('chat message', (msg) => {
+      const messageItem = document.createElement('li');
+      messageItem.textContent = msg;
+      messagesList.appendChild(messageItem);
+    });
+  </script>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Node.js Chat Application</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io();
+      const form = document.querySelector('form');
+      const input = document.querySelector('#message');
+      const messages = document.querySelector('#messages');
+      const username = prompt('What is your name?');
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        socket.emit('chat message', `${username}: ${input.value}`);
+        input.value = '';
+      });
+
+      socket.on('chat message', (msg) => {
+        const li = document.createElement('li');
+        li.innerText = msg;
+        messages.appendChild(li);
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Node.js Chat Application</h1>
+    <ul id="messages"></ul>
+    <form action="">
+      <input id="message" autocomplete="off" /><button>Send</button>
+    </form>
+  </body>
+</html>
